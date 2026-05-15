@@ -1,0 +1,92 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Import Translation Manager Public Context API",
+    "version": "1.0.0",
+    "description": "Read-only API for retrieving the AI-safe public project context generated from the private repository allowlist."
+  },
+  "servers": [
+    {
+      "url": "https://uni-versal-data.github.io/universal-data-public-context",
+      "description": "GitHub Pages public context site"
+    }
+  ],
+  "paths": {
+    "/api/public-context.json": {
+      "get": {
+        "operationId": "getPublicProjectContext",
+        "summary": "Get public project context",
+        "description": "Returns the reviewed AI-safe public project context as Markdown inside a JSON response. This endpoint is generated only from docs/public-context.md in the private repository.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "AI-safe public project context.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "schema_version": {
+                      "type": "string",
+                      "description": "Version of this generated response shape."
+                    },
+                    "project": {
+                      "type": "string",
+                      "description": "Project name."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Purpose of this endpoint."
+                    },
+                    "source_repository_file": {
+                      "type": "string",
+                      "description": "Reviewed private-repository source path used by the publisher."
+                    },
+                    "public_context_file": {
+                      "type": "string",
+                      "description": "Published markdown file path in this public repository."
+                    },
+                    "content_type": {
+                      "type": "string",
+                      "description": "Media type of the context content."
+                    },
+                    "generated_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "UTC timestamp when this public API payload was generated."
+                    },
+                    "source_commit": {
+                      "type": "string",
+                      "description": "Private repository commit SHA that generated this payload."
+                    },
+                    "target_branch": {
+                      "type": "string",
+                      "description": "Public repository branch updated by the publisher."
+                    },
+                    "content": {
+                      "type": "string",
+                      "description": "The AI-safe public project context in Markdown."
+                    }
+                  },
+                  "required": [
+                    "schema_version",
+                    "project",
+                    "description",
+                    "source_repository_file",
+                    "public_context_file",
+                    "content_type",
+                    "generated_at",
+                    "source_commit",
+                    "target_branch",
+                    "content"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
